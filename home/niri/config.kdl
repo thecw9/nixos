@@ -255,7 +255,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "~/.config/waybar/start_waybar.sh"
+spawn-at-startup "start-waybar"
 spawn-at-startup "xwayland-satellite"
 
 environment {

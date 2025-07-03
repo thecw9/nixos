@@ -8,7 +8,8 @@
     ./fzf.nix
     ./git.nix
     ./theme.nix
-    ./nixvim.nix
+    ./nixvim
+    ./i18n
     ./hypr
     ./niri
     ./waybar
@@ -19,27 +20,28 @@
     ./zathura
     ./sioyek
     ./zed.nix
+    # ./python.nix
   ];
   home.username = "thecw";
   home.homeDirectory = "/home/thecw";
 
   home.packages = with pkgs; [
     tree
-    (pkgs.writeScriptBin "mount-nutstore" ''
-      #!/bin/sh
-      if [ ! -d ${config.home.homeDirectory}/Nutstore ]; then
-        mkdir ${config.home.homeDirectory}/Nutstore
-      fi
-      ${pkgs.rclone}/bin/rclone mount \
-        nutstore: ${config.home.homeDirectory}/Nutstore \
-        --vfs-cache-mode full \
-        --cache-dir ${config.home.homeDirectory}/.cache/rclone \
-        --vfs-cache-max-size 20G \
-        --vfs-cache-max-age 240h \
-        --daemon
-    '')
+    fastfetch
   ];
-  
+
+  xdg.mimeApps = {
+    enable = true; # 打开写入 ~/.config/mimeapps.list
+    defaultApplications = {
+      "application/pdf" = [
+        "org.pwmt.zathura.desktop"
+        "sioyek.desktop"
+      ];
+      "image/jpeg" = [ "imv.desktop" ];
+      "image/png" = [ "imv.desktop" ];
+      "image/svg+xml" = [ "org.inkscape.Inkscape.desktop" ];
+    };
+  };
 
   home.stateVersion = "25.05";
 }

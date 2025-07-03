@@ -2,24 +2,29 @@
 {
   config,
   pkgs,
+  pkgs-stable,
   lib,
   ...
 }:
 
 {
   nixpkgs.overlays = [
-    # overlayer1 - 参数名用 self 与 super，表达继承关系
-    (self: super: {
-      google-chrome = super.google-chrome.override {
-        commandLineArgs = "--ozone-platform-hint=auto";
-      };
-    })
+    # (self: super: {
+    #   google-chrome = super.google-chrome.override {
+    #     commandLineArgs = "--ozone-platform-hint=auto";
+    #   };
+    # })
+
+    # (self: super: {
+    #   microsoft-edge = super.microsoft-edge.override {
+    #     commandLineArgs = "--ozone-platform-hint=auto";
+    #   };
+    # })
 
     (self: super: {
-      microsoft-edge = super.microsoft-edge.override {
-        commandLineArgs = "--ozone-platform-hint=auto";
-      };
+      qq = pkgs-stable.qq;
+      clash-verge-rev = pkgs-stable.clash-verge-rev;
+      # gimp3 = pkgs-stable.gimp3;
     })
-
   ];
 }

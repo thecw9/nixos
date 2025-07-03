@@ -17,6 +17,7 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
@@ -129,6 +130,11 @@
     vscode
     # zed-editor
 
+    # programming
+    gcc
+
+    wlogout
+
     # shell
     zsh
     fzf
@@ -148,7 +154,7 @@
     v2rayn
     v2ray
     xray
-    clash-verge-rev
+    # clash-verge-rev
     # nur.repos.chillcicada.clash-verge-rev
 
     # browser
@@ -169,8 +175,12 @@
     sioyek
 
     # draw
+    drawio
     gimp3
     inkscape
+
+    imv
+    mpv
 
     # tool
     cliphist
@@ -205,7 +215,7 @@
     WLR_NO_HARDWARE_CURSORS = "1";
 
     XMODIFIERS = "@im=fcitx";
-    # GTK_IM_MODULE = "fcitx";
+    GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
     # SDL_IM_MODULE = "fcitx";
   };
@@ -220,6 +230,13 @@
   programs.zsh.enable = true;
   programs.hyprland.enable = true;
   programs.niri.enable = true;
+  programs.firefox.enable = true;
+  programs.clash-verge = {
+    enable = true;
+    # autoStart = true;
+    tunMode = true;
+    serviceMode = true;
+  };
 
   # List services that you want to enable:
 
@@ -257,20 +274,23 @@
   # nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = lib.mkForce true;
   # do garbage collection weekly to keep disk usage low
-  nix.gc = {
-    automatic = lib.mkDefault true;
-    dates = lib.mkDefault "weekly";
-    options = lib.mkDefault "--delete-older-than 7d";
-  };
 
   # Manual optimise storage: nix-store --optimise
   # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
   nix.settings.auto-optimise-store = true;
+  nix.settings = {
+    trusted-users = [ "thecw" ];
+  };
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
     "pipe-operators"
   ];
+  nix.gc = {
+    automatic = lib.mkDefault true;
+    dates = lib.mkDefault "weekly";
+    options = lib.mkDefault "--delete-older-than 7d";
+  };
   system.stateVersion = "25.05"; # Did you read the comment?
 
 }

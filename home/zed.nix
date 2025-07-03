@@ -12,6 +12,7 @@
       };
       vim_mode = true;
       hover_popover_enabled = true;
+      ui_font_size = 22;
       confirm_quit = true;
       show_completions_on_input = true;
       show_completion_documentation = true;

@@ -13,5 +13,15 @@ in
   programs.waybar.enable = true;
   home.file.".config/waybar/config.json".source = config.lib.file.mkOutOfStoreSymlink config_dotfile;
   home.file.".config/waybar/style.css".source = config.lib.file.mkOutOfStoreSymlink style_dotfile;
-  home.file.".config/waybar/start_waybar.sh".source = config.lib.file.mkOutOfStoreSymlink start_script;
+  home.file.".config/waybar/start_waybar.sh".source =
+    config.lib.file.mkOutOfStoreSymlink start_script;
+
+  home.packages = with pkgs; [
+    (pkgs.writeScriptBin "start-waybar" ''
+      #!/bin/sh
+      ${pkgs.waybar}/bin/waybar \
+        --config ${config.home.homeDirectory}/.config/waybar/config.json \
+        --style ${config.home.homeDirectory}/.config/waybar/style.css
+    '')
+  ];
 }
